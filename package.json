@@ -1,0 +1,35 @@
+{
+  "name": "taking-shape",
+  "version": "0.0.0",
+  "description": "real world chat",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+        "stop": "echo not implemented",
+    "start": "node ./app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/vikashkumar18/node-redis-chat.git"
+  },
+  "keywords": [
+    "node",
+    "chat",
+    "redis"
+  ],
+    "dependencies": {
+    "ejs": "0.8.5",
+    "express": "4.6.1",
+    "express-partials": "0.2.0",
+    "redis": "0.10.1",
+    "connect-redis": "1.4.7",
+    "connect-flash": "0.1.1"
+  },
+  "author": "vikash",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vikashkumar18/node-redis-chat/issues"
+  },
+  "homepage": "https://github.com/vikashkumar18/node-redis-chat#readme"
+}
+
