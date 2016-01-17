@@ -4,14 +4,15 @@ module.exports.loginProcess = loginProcess;
 module.exports.chat = chat;
 
 function index(req, res){
-  res.send('Index');
+	 res.cookie('IndexCookie', 'This was set from server');
+  res.render('index',{title:"Index",cookie:JSON.stringify(req.cookies),session:JSON.stringify(req.session)});
 };
 function login(req, res){
-  res.send('Login');
+   res.render('login',{title:"Logi"});
 };
 function loginProcess(req, res){
   res.redirect('/');
 };
 function chat(req, res){
-  res.send('Chat');
+   res.render('chat',{title:"Chat"});
 };
