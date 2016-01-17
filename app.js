@@ -2,6 +2,7 @@ var express = require('express'),
 //with all the other requires at the top of the file
 cookieParser = require('cookie-parser'),
 session = require('express-session');
+var RedisStore = require('connect-redis')(session);
 var app = express();
 app.set("views","./app_views");
 var routes = require('./routes');
@@ -12,7 +13,15 @@ app.set("view engine","jade");
 app.use(log.logger);
 app.use(express.static(__dirname + '/static'));
 app.use(cookieParser());
-app.use(session({secret: 'secret'}));
+//app.use(session({secret: 'secret'}));
+app.use(session({
+  secret: 'secret',
+  saveUninitialized: true,
+  resave: true,
+  store: new RedisStore(
+    {host:"127.0.0.1",port:"6379"})
+  })
+);
 
 app.use(function(req, res, next){
   if(req.session.pageCount)
