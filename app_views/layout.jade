@@ -8,6 +8,14 @@ html
 		div.container
 			div.row
 				div.col-sm-4
-					h1 PacktChat
+					h1.pull-left PacktChat
+				div.col-sm-4.col-sm-offset-4.top-margin
+					div.pull-right
+						-if(isAuthenticated){
+						include ./partials/user-loggedin
+						-}else{
+						include ./partials/user-loggedout
+						-}
+
 			div.row
 				block content

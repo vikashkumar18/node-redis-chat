@@ -3,6 +3,10 @@ var express = require('express'),
 cookieParser = require('cookie-parser'),
 bodyParser = require('body-parser'),
 csurf = require('csurf'),
+flash = require('connect-flash'),
+//to use all config varibles
+//first step towards modular approach
+config = require('./config'),
 util = require('./middleware/utilities'),
 session = require('express-session');
 var RedisStore = require('connect-redis')(session);
@@ -15,21 +19,22 @@ var log = require('./middleware/logs');
 app.set("view engine","jade");
 app.use(log.logger);
 app.use(express.static(__dirname + '/static'));
-app.use(cookieParser("secret"));
+app.use(cookieParser(config.secret));
 //app.use(session({secret: 'secret'}));
 app.use(session({
-  secret: 'secret',
+  secret: config.secret,
   saveUninitialized: true,
   resave: true,
   store: new RedisStore(
-    {host:"127.0.0.1",port:"6379"})
+   {url: config.redisUrl})
   })
-);
+  );
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(csurf());
 app.use(util.csrf);
+app.use(util.authenticated);
 
 app.use(function(req, res, next){
   if(req.session.pageCount)
@@ -40,10 +45,15 @@ app.use(function(req, res, next){
   next();
 });
 
+app.use(flash());
+app.use(util.templateRoutes);
+
 app.get('/',routes.index);
-app.get('/login',routes.login);
-app.post('/login',routes.loginProcess);
-app.get('/chat',routes.chat);
+app.get(config.routes.login,routes.login);
+app.post(config.routes.login,routes.loginProcess);
+app.get(config.routes.logout, routes.logout);
+//the middleware will be used only for /chat route
+app.get('/chat', [util.requireAuthentication], routes.chat);
 
 //route is just another middle ware
 app.get('/error', function(req, res, next){
@@ -53,5 +63,5 @@ app.get('/error', function(req, res, next){
 app.use(errorHandlers.error);
 app.use(errorHandlers.notFound);
 
-app.listen(3000);
+app.listen(config.port);
 console.log("App server running on port 3000");
