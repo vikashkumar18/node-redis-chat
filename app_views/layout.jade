@@ -19,3 +19,7 @@ html
 
 			div.row
 				block content
+		script(src='js/socket.io.js')
+		script.
+			var socket = io.connect("http://localhost:3000/packtchat");
+			socket.on('message', function(d){console.log(d);});
