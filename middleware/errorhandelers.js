@@ -14,5 +14,6 @@ module.exports.notFound = function notFound( req, res, next) {
 
 exports.error = function error(err, req, res, next){
   console.log(err);
-  res.send(500, 'Something broke. What did you do?');
+
+  res.status(500).send('Something broke. What did you do?');
 };

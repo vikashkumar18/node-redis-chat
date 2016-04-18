@@ -1,5 +1,5 @@
 var util = require('../middleware/utilities'),
-config = require('../config');
+    config = require('../config');
 module.exports.index = index;
 module.exports.login = login;
 module.exports.loginProcess = loginProcess;
@@ -20,7 +20,7 @@ function index(req, res) {
 The flash message is now in the session. To display this, we just have to get it out. The act of getting it out will also delete it from the session
 */
 function login(req, res) {
-    res.render('login', {title: 'Login', message: req.flash('error')});
+    res.render('login', { title: 'Login', message: req.flash('error') });
 };
 
 function loginProcess(req, res) {
@@ -39,7 +39,7 @@ function chat(req, res) {
     });
 };
 
-function logout(req,res) {
-    util.logout(req.session);
+function logout(req, res) {
+    util.logOut(req);
     res.redirect('/');
 }
