@@ -7,7 +7,6 @@ module.exports.register = register;
 module.exports.registerProcess = registerProcess;;
 module.exports.index = index;
 module.exports.login = login;
-module.exports.loginProcess = loginProcess;
 module.exports.chat = chat;
 module.exports.logout = logout;
 
@@ -54,7 +53,7 @@ function register(req, res){
   res.render('register', {title: 'Register', message: req.flash('error')});
 };
 
-function register Process (req, res){
+function registerProcess (req, res){
   if (req.body.username && req.body.password)
   {
     user.addUser(req.body.username, req.body.password, config.crypto.workFactor, function(err, profile){
