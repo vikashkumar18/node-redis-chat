@@ -1,4 +1,4 @@
 node_modules/
-.idea/
+.idea/*
 dump.rdb
 npm-debug.log
