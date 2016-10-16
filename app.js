@@ -69,7 +69,11 @@ app.use(util.templateRoutes);
 passport.routes(app);
 app.get('/', routes.index);
 app.get(config.routes.login, routes.login);
-app.post(config.routes.login, routes.loginProcess);
+/*
+ Any POST to the login URL will run our local authentication function.
+  It will also process our redirects.
+*/
+//app.post(config.routes.login, routes.loginProcess);
 app.get(config.routes.logout, routes.logout);
 //the middleware will be used only for /chat route
 app.get(config.routes.chat, [util.requireAuthentication], routes.chat);
@@ -78,6 +82,9 @@ app.get(config.routes.chat, [util.requireAuthentication], routes.chat);
 app.get('/error', function(req, res, next) {
     next(new Error('A contrived error'));
 });
+
+app.get(config.routes.register, routes.register);
+app.post(config.routes.register, routes.registerProcess);
 
 app.use(errorHandlers.error);
 app.use(errorHandlers.notFound);

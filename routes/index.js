@@ -1,5 +1,10 @@
 var util = require('../middleware/utilities'),
-    config = require('../config');
+    config = require('../config'),
+    //variable declaration
+    user = require('../passport/user');
+//exports
+module.exports.register = register;
+module.exports.registerProcess = registerProcess;;
 module.exports.index = index;
 module.exports.login = login;
 module.exports.loginProcess = loginProcess;
@@ -23,15 +28,16 @@ function login(req, res) {
     res.render('login', { title: 'Login', message: req.flash('error') });
 };
 
-function loginProcess(req, res) {
-    var isAuth = util.auth(req.body.username, req.body.password, req.session);
-    if (isAuth) {
-        res.redirect("/chat");
-    } else {
-        req.flash('error', 'Wrong Username or Password');
-        res.redirect(config.routes.login);
-    }
-};
+//not needed as local authentication is taken care by passport
+// function loginProcess(req, res) {
+//     var isAuth = util.auth(req.body.username, req.body.password, req.session);
+//     if (isAuth) {
+//         res.redirect("/chat");
+//     } else {
+//         req.flash('error', 'Wrong Username or Password');
+//         res.redirect(config.routes.login);
+//     }
+// };
 
 function chat(req, res) {
     res.render('chat', {
@@ -43,3 +49,26 @@ function logout(req, res) {
     util.logOut(req);
     res.redirect('/');
 }
+
+function register(req, res){
+  res.render('register', {title: 'Register', message: req.flash('error')});
+};
+
+function register Process (req, res){
+  if (req.body.username && req.body.password)
+  {
+    user.addUser(req.body.username, req.body.password, config.crypto.workFactor, function(err, profile){
+      if (err) {
+        req.flash('error', err);
+        res.redirect(config.routes.register);
+      }else{
+        req.login(profile, function(err){
+          res.redirect('/chat');
+        });
+      }
+    });
+  }else{
+    req.flash('error', 'Please fill out all the fields');
+    res.redirect(config.routes.register);
+  }
+};
