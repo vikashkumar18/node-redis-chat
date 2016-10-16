@@ -1,1 +1,1 @@
-../../node_modules/socket.io/node_modules/socket.io-client/socket.io.js
+/home/vikash/fork/node-redis-chat/node_modules/socket.io-client/socket.io.js

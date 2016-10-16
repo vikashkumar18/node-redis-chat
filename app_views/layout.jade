@@ -2,8 +2,8 @@ doctype html
 html
 	head
 		title Index
-		link(rel='stylesheet' href='cosmo.min.css')
-		link(rel='stylesheet' href='css/style.css')
+		link(rel='stylesheet' href='/cosmo.min.css')
+		link(rel='stylesheet' href='/css/style.css')
 	body 
 		div.container
 			div.row
@@ -19,7 +19,7 @@ html
 
 			div.row
 				block content
-		script(src='js/socket.io.js')
+		script(src='/js/socket.io.js')
 		script.
 			var socket = io.connect("http://localhost:3000/packtchat");
 			socket.on('message', function(d){console.log(d);});
