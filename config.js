@@ -8,12 +8,18 @@ var config = {
     logout: '/account/logout',
     chat: '/chat',
     facebookAuth: '/auth/facebook',
-    facebookAuthCallback: '/auth/facebook/callback'
+    facebookAuthCallback: '/auth/facebook/callback',
+    googleAuth: '/auth/google',
+    googleAuthCallback: '/auth/google/callback'
   },
   host: 'http://localhost:3000',
   facebook: {
-    appID: '182364318631927',
-    appSecret: '8df470acd0ff17d40b8b1a3fd8a9daf1',
+    appID: '',
+    appSecret: '',
+  },
+  google: {
+    clientID: '',
+    clientSecret: ''
   }
 };
 module.exports = config;

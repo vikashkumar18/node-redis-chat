@@ -1,5 +1,7 @@
 var passport = require('passport'),
     facebook = require('passport-facebook').Strategy,
+    //other variable declarations
+    google = require('passport-google-oauth').OAuth2Strategy,
     config = require('../config');
 
 passport.use(new facebook({
@@ -26,6 +28,15 @@ passport.use(new facebook({
         //done is like next
         done(null, profile);
     }));
+//right under the Facebook passport.use
+passport.use(new google({
+    clientID: config.google.clientID,
+    clientSecret: config.google.clientSecret,
+    callbackURL: config.host + config.routes.googleAuthCallback
+},
+function(accessToken, refreshToken, profile, done) {
+  done(null, profile);
+}));
 
 /*If we have our own database backend, 
 	we can just store the user ID that we could 
